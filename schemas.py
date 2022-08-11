@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-class Task(BaseModel):
+class CreateTaskModel(BaseModel):
     name:str
-    status: int = 0
 

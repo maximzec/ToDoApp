@@ -1,7 +1,7 @@
 from http.client import HTTPResponse
 from fastapi import FastAPI, Depends
-from models.task import Task
-import schemas.task_schema
+from schemas import CreateTaskModel
+from database_models import Task
 
 from sqlalchemy.orm import Session
 from crud import create_task, get_all_tasks
@@ -36,7 +36,7 @@ async def root():
 
 
 @app.post('/tasks/create-task')
-async def create_task_route(task:Task, db:Session = Depends(get_db)):
+async def create_task_route(task:CreateTaskModel, db:Session = Depends(get_db)):
     return create_task(task=task, db=db)
 
 @app.get('/tasks/all')

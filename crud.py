@@ -1,13 +1,14 @@
 from unicodedata import name
 from sqlalchemy.orm import Session
+from database_models import Task, TaskStatuses
+from schemas import CreateTaskModel
 
-import models.task, schemas.task_schema
 
 
-def create_task(db:Session, task: models.task):
-    db_task = schemas.task_schema.Task(
+def create_task(db:Session, task: CreateTaskModel):
+    db_task = Task(
         name = task.name,
-        status = schemas.task_schema.TaskStatuses.opened
+        status = TaskStatuses.opened
     )
     db.add(db_task)
     db.commit()
@@ -16,5 +17,5 @@ def create_task(db:Session, task: models.task):
 
 
 def get_all_tasks(db:Session):
-    return db.query(schemas.task_schema.Task).all()
+    return db.query(Task).all()
 
