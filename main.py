@@ -7,7 +7,9 @@ from sqlalchemy.orm import Session
 from crud import create_task, get_all_tasks
 from database import SessionLocal, engine
 
+from database import Base
 
+Base.metadata.create_all(bind=engine)
 
 #dependency 
 def get_db():
@@ -37,7 +39,7 @@ async def root():
 async def create_task_route(task:Task, db:Session = Depends(get_db)):
     return create_task(task=task, db=db)
 
-@app.get('tasks/all')
+@app.get('/tasks/all')
 async def get_all_tasks_route(db:Session = Depends(get_db)):
     return get_all_tasks(db=db)
 
