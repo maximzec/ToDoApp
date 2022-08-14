@@ -9,7 +9,9 @@ from database import SessionLocal, engine
 
 from database import Base
 
-Base.metadata.create_all(bind=engine)
+
+#Если отключить эту строчку, то чтобы редактировать базы нужны будут миграции
+#Base.metadata.create_all(bind=engine)
 
 #dependency 
 def get_db():
@@ -27,13 +29,7 @@ app = FastAPI()
 
 @app.get('/')
 async def root():
-    return 'Hello, world!'
-
-
-#@app.post('/Tasks')
-#async def create_task(task:Task):
-#   return task
-
+    return 'Welcome to ToDoApp'
 
 @app.post('/tasks/create-task')
 async def create_task_route(task:CreateTaskModel, db:Session = Depends(get_db)):

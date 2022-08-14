@@ -2,13 +2,15 @@ from unicodedata import name
 from sqlalchemy.orm import Session
 from database_models import Task, TaskStatuses
 from schemas import CreateTaskModel
-
+from datetime import datetime
 
 
 def create_task(db:Session, task: CreateTaskModel):
     db_task = Task(
         name = task.name,
-        status = TaskStatuses.opened
+        description = task.description,
+        status = TaskStatuses.opened,
+        create_date = datetime.now()
     )
     db.add(db_task)
     db.commit()

@@ -1,5 +1,6 @@
 from telnetlib import STATUS
-from sqlalchemy import Column, Integer, Enum, String
+from venv import create
+from sqlalchemy import Column, Integer, Enum, String, DateTime
 from database import Base
 import enum
 
@@ -16,6 +17,8 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
+    description = Column(String)
     status = Column(Enum(TaskStatuses))
+    create_date = Column(DateTime)
 
 
