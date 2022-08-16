@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, Depends
-from schemas import CreateTaskModel, UpdateTaskModel
+from schemas import CreateTaskModel, UpdateTaskModel, DeleteTaskModel
 
 from sqlalchemy.orm import Session
-from crud import create_task, get_all_tasks, update_task
+from crud import create_task, get_all_tasks, update_task, delete_task
 from database import SessionLocal, engine
 
 from database import Base
@@ -43,8 +43,8 @@ async def update_task_route(updated_task: UpdateTaskModel, db:Session = Depends(
 
 
 @app.delete('/tasks/delete-task')
-async def delete_task_route():
-    return 'deleted'
+async def delete_task_route(deleted_task:DeleteTaskModel, db:Session = Depends(get_db)):
+    return delete_task(db=db, delete_task=deleted_task)
 
 @app.get('/tasks/all')
 async def get_all_tasks_route(db:Session = Depends(get_db)):

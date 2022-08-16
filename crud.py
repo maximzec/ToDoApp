@@ -1,8 +1,6 @@
-from dataclasses import asdict
-from unicodedata import name
 from sqlalchemy.orm import Session
 from database_models import Task, TaskStatuses
-from schemas import CreateTaskModel, UpdateTaskModel
+from schemas import CreateTaskModel, UpdateTaskModel, DeleteTaskModel
 from datetime import datetime
 
 
@@ -24,7 +22,11 @@ def update_task(db:Session, updated_task: UpdateTaskModel):
     db.commit()
     return updated_task
 
-    
+def delete_task(db:Session, delete_task: DeleteTaskModel):
+    db.query(Task).filter(Task.id==delete_task.id).delete(synchronize_session=False)
+    db.commit()
+    return delete_task
+
 
 
 def get_all_tasks(db:Session):

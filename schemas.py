@@ -18,3 +18,7 @@ class UpdateTaskModel(BaseModel):
             'name':self.name,
             'description': self.description
         }
+
+
+class DeleteTaskModel(BaseModel):
+    id:int
